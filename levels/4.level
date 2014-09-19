@@ -1,0 +1,16 @@
+exit
+x=100
+y=100
+
+ball
+x=200
+y=200
+m=1000
+
+spacewall
+x=400
+y=400
+
+spacewall
+x=500
+y=500
