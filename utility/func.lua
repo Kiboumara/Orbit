@@ -1,44 +1,5 @@
 func = {}
 
-function func.addGarbage() --adds a garbage object to the title screen
-	local z = {} --start the table
-	z.b = love.physics.newBody(titleworld, love.math.random(32, 768), love.math.random(32, 568), "dynamic")--add a dynamic body at a random x and y to the title world
-	z.s = love.physics.newCircleShape(16) --add a new circle shape at the same x and y as the body
-	z.f = love.physics.newFixture(z.b,z.s, 1) --attach the shape and the body together
-	z.f:setRestitution(0.9)
-	local xv = love.math.random(5,15) --generate a random x velocity
-	if love.math.random(1,2) == 1 then --basically a 50% chance to run the code
-		xv = xv * -1 --flip the x velocity
-	end
-	local yv = love.math.random(5,15) --generate a random y velocity
-	if love.math.random(1,2) == 1 then --basically a 50% chance to run the code
-		yv = yv * -1 --flip the y velocity
-	end
-	z.b:applyLinearImpulse(xv, yv) --apply the x and y velocities
-	z.i = love.graphics.newImage("images/objects/garbage.png") --add the image
-	return z --return the table we just made.
-end
-
-function func.addStar() --adds a star
-	local z = {} --start the table
-	z.i = love.graphics.newImage("images/objects/star" .. love.math.random(1,4) .. ".png") --insert a random image
-	z.x = love.math.random(0,800) --place it on a random x cord
-	z.y = love.math.random(0,600) --place it on a random y cord
-	z.l = "living" --set it's state to 'living'
-	z.a = 255 --set it's 'health' to full
-	z.t = (love.math.random()*10)/4 --set it's 'lifespan' to a random number of seconds between 0-10
-	return z
-end
-
-function func.addLevel(x,c)--y,x
-	local z = {}
-	z.i = love.graphics.newImage("images/gui/level" .. love.math.random(1,3) .. ".png")
-	z.x = 100+c*90
-	z.y = x*90
-	z.l = false
-	return z
-end
-
 function func.updateStar(star, dt) --updates the life cycle of the star(star is the star that is to be updated, dt is the time since last call.)
 	if star.l == "living" then --if the star is living
 		if star.t <= 0 then --if it's lifespan is over
@@ -64,6 +25,7 @@ function func.updateStar(star, dt) --updates the life cycle of the star(star is 
 	end
 	return star --return the now updated star
 end
+
 
 
 function func.overImg(shape,x,y,w,h) --checks whether the point is over the image object given (shape is the table of the shape, x and y are the coordinates being checked)
@@ -115,6 +77,8 @@ function func.loadBlock(length, startline, path)
 	end
 	return q, startline
 end
+
+
 
 function func.addBall(x,y,m)
 	local z = {}
@@ -172,17 +136,41 @@ function func.addCheat(x1,y1,x2,y2)
 	return z
 end
 
-function func.rectOverlap(x1,y1,w1,h1, x2,y2,w2,h2)
-  return x1 < x2+w2 and
-         x2 < x1+w1 and
-         y1 < y2+h2 and
-         y2 < y1+h1
+function func.addGarbage() --adds a garbage object to the title screen
+	local z = {} --start the table
+	z.b = love.physics.newBody(titleworld, love.math.random(32, 768), love.math.random(32, 568), "dynamic")--add a dynamic body at a random x and y to the title world
+	z.s = love.physics.newCircleShape(16) --add a new circle shape at the same x and y as the body
+	z.f = love.physics.newFixture(z.b,z.s, 1) --attach the shape and the body together
+	z.f:setRestitution(0.9)
+	local xv = love.math.random(5,15) --generate a random x velocity
+	if love.math.random(1,2) == 1 then --basically a 50% chance to run the code
+		xv = xv * -1 --flip the x velocity
+	end
+	local yv = love.math.random(5,15) --generate a random y velocity
+	if love.math.random(1,2) == 1 then --basically a 50% chance to run the code
+		yv = yv * -1 --flip the y velocity
+	end
+	z.b:applyLinearImpulse(xv, yv) --apply the x and y velocities
+	z.i = love.graphics.newImage("images/objects/garbage.png") --add the image
+	return z --return the table we just made.
 end
 
-function func.signFind(num)
-	if num > 0 then
-		return 1
-	else
-		return -1
-	end
+function func.addStar() --adds a star
+	local z = {} --start the table
+	z.i = love.graphics.newImage("images/objects/star" .. love.math.random(1,4) .. ".png") --insert a random image
+	z.x = love.math.random(0,800) --place it on a random x cord
+	z.y = love.math.random(0,600) --place it on a random y cord
+	z.l = "living" --set it's state to 'living'
+	z.a = 255 --set it's 'health' to full
+	z.t = (love.math.random()*10)/4 --set it's 'lifespan' to a random number of seconds between 0-10
+	return z
+end
+
+function func.addLevel(x,c)--y,x
+	local z = {}
+	z.i = love.graphics.newImage("images/gui/level" .. love.math.random(1,3) .. ".png")
+	z.x = 100+c*90
+	z.y = x*90
+	z.l = false
+	return z
 end

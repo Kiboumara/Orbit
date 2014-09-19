@@ -6,8 +6,6 @@ function game:init() --the first time the game is loaded
 	gameworld = love.physics.newWorld() --create a new world
 end
 
-
-
 function game:enter(current, lvlno, try)
 	TEsound.stop("voice") --stop all the title sounds
 	lvldata = "levels/" .. lvlno .. ".level" --load the level file
@@ -72,7 +70,7 @@ function game:draw()
 		love.graphics.setColor(255,255,255,star[q].a) --set the transparency to the stars 'health'
 		love.graphics.draw(star[q].i,star[q].x,star[q].y) --draw the star at the x and y stored in the table for the star.
 	end
-	
+	love.graphics.setColor(255,255,255,255)
 	for q = 1, #obj.well do --for all the wells
 		if ((love.mouse.getX()>obj.well[q].b:getX()-8)and(love.mouse.getX()<obj.well[q].b:getX()-8+16))and((love.mouse.getY()>obj.well[q].b:getY()-8)and(love.mouse.getY()<obj.well[q].b:getY()-8+16)) then --if the mouse is over the well
 			love.graphics.setColor(255,255,255,100)
@@ -152,6 +150,7 @@ function game:draw()
 			love.graphics.line(obj.cheat[q].x1, obj.cheat[q].y1, obj.cheat[q].x2, obj.cheat[q].y2) --draw the guideline
 		end
 	end
+	
 end
 
 function game:mousepressed(x,y,button) --if the mouse is pressed
@@ -161,10 +160,11 @@ function game:mousepressed(x,y,button) --if the mouse is pressed
 				meta.mousepressed = true --tell the game the ball is being moved
 				meta.ballno = q --remember the ball number
 				obj.ball[q].v = false --stop the ball form moving again
-				break
+				return
 			end
 		end
 	end
+	obj.well[#obj.well+1] = func.addWell(x,y,30100,200)
 end
 
 function game:mousereleased(x,y,button) --if the mouse is released
