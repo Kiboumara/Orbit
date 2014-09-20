@@ -78,15 +78,15 @@ function options:mousepressed(x,y,button)
 				elseif q == 3 or q == 4 then
 					if conf[q].v == "high" then
 						conf[q].v = "med"
-						TEsound.volume("backgroundmusic", 0.7)
+						TEsound.volume("backgroundmusic", 0.7/2)
 					elseif conf[q].v == "med" then
 						conf[q].v = "low"
-						TEsound.volume("backgroundmusic", 0.35)
+						TEsound.volume("backgroundmusic", 0.35/2)
 					elseif conf[q].v == "low" then
-						TEsound.volume("backgroundmusic", 0)
+						TEsound.volume("backgroundmusic", 0/2)
 						conf[q].v = "mute"
 					elseif conf[q].v == "mute" then
-						TEsound.volume("backgroundmusic", 1)
+						TEsound.volume("backgroundmusic", 1/2)
 						conf[q].v = "high"
 					end
 				end

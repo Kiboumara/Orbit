@@ -1,10 +1,7 @@
 game = {} --start the gamestate
 function game:init() --the first time the game is loaded
-	TEsound.stop("titlesound") --stop all the title sounds
-	TEsound.stop("gamesound") --stop all the title sounds
-	TEsound.play("music/background/game.wav",{"backgroundmusic","gamesound"},1,1,function () TEsound.playLooping("music/background/gameloop.wav",{"backgroundmusic","gamesound"}) end) --play the intro and then the loop.
 	gameworld = love.physics.newWorld() --create a new world
-end
+endd
 
 function game:enter(current, lvlno, try)
 	TEsound.stop("voice") --stop all the title sounds
@@ -53,7 +50,7 @@ function game:enter(current, lvlno, try)
 		meta.lines[w] = q --record them
 		w = w + 1 --increment the counter
 	end
-	meta.linenum = 1 --se the line number to 1
+	meta.linenum = 1 --set the line number to 1
 	meta.canspeak = true --let the game speak
 	meta.voicegoing = false --record that there is nobody speaking
 end
@@ -134,7 +131,6 @@ function game:draw()
 		obj.exit[q].i:draw(obj.exit[q].x, obj.exit[q].y) --draw it
 	end
 	
-	
 	if meta.mousepressed then --if a ball is being dragged
 		love.graphics.line(love.mouse.getX(),love.mouse.getY(),obj.ball[meta.ballno].b:getX(),obj.ball[meta.ballno].b:getY()) --draw a visual representation of the amount
 	end
@@ -164,7 +160,11 @@ function game:mousepressed(x,y,button) --if the mouse is pressed
 			end
 		end
 	end
-	obj.well[#obj.well+1] = func.addWell(x,y,30100,200)
+	for q = 1, #obj.spacewall do
+		if ((x > obj.spacewall[q].b:getX()-16)and(x<obj.spacewall[q].b:getX() + 16))and((y>obj.spacewall[q].b:getY()-16)and(y<obj.spacewall[q].b:getY()+16))then
+			obj.well[#obj.well+1] = func.addWell(x,y,30100,200)
+		end
+	end
 end
 
 function game:mousereleased(x,y,button) --if the mouse is released

@@ -22,13 +22,13 @@ function title:init() --called when the gamestate is first entered
 	musicstarted = false
 	TEsound.play("music/background/menu.wav",{"backgroundmusic","titlesound"},1,1,function () TEsound.playLooping("music/background/menuloop.wav",{"backgroundmusic","titlesound"});musicstarted = true;end)
 	if conf[3].v == "med" then
-		TEsound.volume("backgroundmusic", 0.7)
-	elseif conf[3].v == "low" then
 		TEsound.volume("backgroundmusic", 0.35)
+	elseif conf[3].v == "low" then
+		TEsound.volume("backgroundmusic", 0.15)
 	elseif conf[3].v == "mute" then
 		TEsound.volume("backgroundmusic", 0)
 	elseif conf[3].v == "high" then
-		TEsound.volume("backgroundmusic", 1)
+		TEsound.volume("backgroundmusic", 0.5)
 	end
 	if conf[4].v == "med" then
 		TEsound.volume("soundeffects", 0.7)
@@ -54,7 +54,7 @@ function title:enter() --called when the gamestate is entered
 	images[3] = {}
 	images[3].x = 667
 	images[3].y = 531
-	images[3].i = love.graphics.newImage("images/gui/start.png")
+	images[3].i = love.graphics.newImage("images/gui/levels.png")
 end
 
 function title:update(dt) --called every frame (dt is the time since the last call in seconds)

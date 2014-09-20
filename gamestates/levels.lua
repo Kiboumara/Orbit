@@ -29,14 +29,6 @@ function levels:enter()
 	images[3].i = love.graphics.newImage("images/gui/back.png")
 end
 
-function levels:leave()
-	
-end
-
-function levels:update(dt)
-	
-end
-
 function levels:draw()
 	for q = 1, #star do --loop for the stars
 		if conf[2].v then
@@ -82,6 +74,9 @@ function levels:mousepressed(x,y,button)
 	end
 	for q = 1, #level do
 		if func.overImg(level[q],x,y) and not level[q].l then
+			TEsound.stop("titlesound") --stop all the title sounds
+			TEsound.stop("gamesound") --stop all the title sounds
+			TEsound.play("music/background/game.wav",{"backgroundmusic","gamesound"},1,1,function () TEsound.playLooping("music/background/gameloop.wav",{"backgroundmusic","gamesound"}) end) --play the intro and then the loop.
 			gamestate.switch(game, q, 1)
 			return
 		end
