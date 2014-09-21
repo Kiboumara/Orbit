@@ -75,20 +75,6 @@ function options:mousepressed(x,y,button)
 		if ((x>6.5*string.len(conf[q].t)+186)and(x<6.5*string.len(conf[q].t)+186+6.5*string.len(tostring(conf[q].v))))and((y>q*12+40)and(y<q*12+60)) then
 				if q == 1 or q == 2 or q==5 then
 					conf[q].v = not conf[q].v
-				elseif q == 3 or q == 4 then
-					if conf[q].v == "high" then
-						conf[q].v = "med"
-						TEsound.volume("backgroundmusic", 0.7/2)
-					elseif conf[q].v == "med" then
-						conf[q].v = "low"
-						TEsound.volume("backgroundmusic", 0.35/2)
-					elseif conf[q].v == "low" then
-						TEsound.volume("backgroundmusic", 0/2)
-						conf[q].v = "mute"
-					elseif conf[q].v == "mute" then
-						TEsound.volume("backgroundmusic", 1/2)
-						conf[q].v = "high"
-					end
 				end
 			return
 		end

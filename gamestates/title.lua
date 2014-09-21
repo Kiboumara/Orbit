@@ -1,6 +1,7 @@
 title = {} --initialise the gamestate
 
 function title:init() --called when the gamestate is first entered
+	gameworld = love.physics.newWorld() --create a new world
 	titleworld = love.physics.newWorld() --create the world
 	garb = {} --start the table that will hold all the garbage
 	for q = 1, love.math.random(20,30) do --loop a random number of times between 20 and 30
@@ -21,24 +22,6 @@ function title:init() --called when the gamestate is first entered
 	end
 	musicstarted = false
 	TEsound.play("music/background/menu.wav",{"backgroundmusic","titlesound"},1,1,function () TEsound.playLooping("music/background/menuloop.wav",{"backgroundmusic","titlesound"});musicstarted = true;end)
-	if conf[3].v == "med" then
-		TEsound.volume("backgroundmusic", 0.35)
-	elseif conf[3].v == "low" then
-		TEsound.volume("backgroundmusic", 0.15)
-	elseif conf[3].v == "mute" then
-		TEsound.volume("backgroundmusic", 0)
-	elseif conf[3].v == "high" then
-		TEsound.volume("backgroundmusic", 0.5)
-	end
-	if conf[4].v == "med" then
-		TEsound.volume("soundeffects", 0.7)
-	elseif conf[4].v == "low" then
-		TEsound.volume("soundeffects", 0.35)
-	elseif conf[4].v == "mute" then
-		TEsound.volume("soundeffects", 0)
-	elseif conf[4].v == "high" then
-		TEsound.volume("soundeffects", 1)
-	end
 end
 
 function title:enter() --called when the gamestate is entered

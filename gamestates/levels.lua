@@ -75,7 +75,7 @@ function levels:mousepressed(x,y,button)
 	for q = 1, #level do
 		if func.overImg(level[q],x,y) and not level[q].l then
 			TEsound.stop("titlesound") --stop all the title sounds
-			TEsound.stop("gamesound") --stop all the title sounds
+			TEsound.stop("gamesound") --stop all the game sounds
 			TEsound.play("music/background/game.wav",{"backgroundmusic","gamesound"},1,1,function () TEsound.playLooping("music/background/gameloop.wav",{"backgroundmusic","gamesound"}) end) --play the intro and then the loop.
 			gamestate.switch(game, q, 1)
 			return

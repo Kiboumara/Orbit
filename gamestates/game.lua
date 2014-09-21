@@ -1,10 +1,8 @@
 game = {} --start the gamestate
-function game:init() --the first time the game is loaded
-	gameworld = love.physics.newWorld() --create a new world
-endd
-
 function game:enter(current, lvlno, try)
-	TEsound.stop("voice") --stop all the title sounds
+	gameworld:destroy()
+	gameworld = love.physics.newWorld() --create a new world
+	TEsound.stop("voice") --stop all the voice sounds
 	lvldata = "levels/" .. lvlno .. ".level" --load the level file
 	q = 1 --set the line to 1
 	obj = {} --start the object table
