@@ -28,18 +28,8 @@ end
 
 
 
-function func.overImg(shape,x,y,w,h) --checks whether the point is over the image object given (shape is the table of the shape, x and y are the coordinates being checked)
-	if shape.x == nil then
-		sx = shape.b:getX()-w
-	else
-		sx = shape.x
-	end
-	if shape.y == nil then
-		sy = shape.b:getY()-y
-	else
-		sy = shape.y
-	end
-	if ((x<sx+shape.i:getWidth())and(x>sx))and((y<sy+shape.i:getHeight())and(y>sy)) then --if the point is within the right side and within the left side and not to high and not to low.
+function func.overImg(shape,x,y) --checks whether the point is over the image object given (shape is the table of the shape, x and y are the coordinates being checked)
+	if ((x<shape.x+shape.i:getWidth())and(x>shape.x))and((y<shape.y+shape.i:getHeight())and(y>shape.y)) then --if the point is within the right side and within the left side and not to high and not to low.
 		return true --return true
 	else --if the point is not over the shape
 		return false --return false

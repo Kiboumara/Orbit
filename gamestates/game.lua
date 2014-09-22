@@ -53,10 +53,27 @@ function game:enter(current, lvlno, try)
 	meta.wd = {type = {"attract","repulse"},strength = {"weak","medium","strong"}} --reset the well info
 	meta.wi = {type = {1,2},strength = {10000,30000,50000}} --reset the well info
 	meta.wn = {type = 1,strength = 2} --reset the well info
+	images = {}
+	images[1] = {}
+	images[1].i = love.graphics.newImage("images/gui/window.png")
+	images[1].x = 672
+	images[1].y = 0
+	images[2] = {}
+	images[2].i = love.graphics.newImage("images/gui/window.png")
+	images[2].x = 0
+	images[2].y = 0
+	images[3] = {}
+	images[3].i = love.graphics.newImage("images/gui/change.png")
+	images[3].x = 687
+	images[3].y = 36
+	images[4] = {}
+	images[4].i = love.graphics.newImage("images/gui/change.png")
+	images[4].x = 687
+	images[4].y = 104
 end
 
 function game:draw()
-	
+	gameworld:update(love.timer.getDelta())
 	for q = 1, #star do --loop for the stars
 		if conf[2].v then --if dynamic stars are on
 			star[q] = func.updateStar(star[q], love.timer.getDelta())--update the star
@@ -136,13 +153,14 @@ function game:draw()
 		love.graphics.line(love.mouse.getX(),love.mouse.getY(),obj.ball[meta.ballno].b:getX(),obj.ball[meta.ballno].b:getY()) --draw a visual representation of the amount
 	end
 	
-	love.graphics.draw(love.graphics.newImage("images/gui/window.png"),672)
+	for q = 1, #images do --for all the images
+		love.graphics.draw(images[q].i,images[q].x,images[q].y) --draw them at the x and y stored in their table
+	end
 	love.graphics.print("Well Type:",684,12)
 	love.graphics.print(meta.wd.type[meta.wn.type],684,24)
-	love.graphics.print("Well strength:",684,36)
-	love.graphics.print(meta.wd.strength[meta.wn.strength],684,48)
+	love.graphics.print("Well strength:",684,82)
+	love.graphics.print(meta.wd.strength[meta.wn.strength],684,92)
 	
-	love.graphics.draw(love.graphics.newImage("images/gui/window.png"))
 	love.graphics.print("Level " .. meta.levelnum, 12,12) --write the current level
 	love.graphics.print("Try " .. meta.try, 70, 12) --write the current try number
 	if meta.voicegoing then --if there is a line being spoken
@@ -166,6 +184,22 @@ function game:mousepressed(x,y,button) --if the mouse is pressed
 			obj.well[#obj.well+1] = func.addWell(x,y,meta.wi.strength[meta.wn.strength],200,meta.wi.type[meta.wn.type])
 		end
 	end
+	if func.overImg(images[3],x,y) then
+		if meta.wn.type == 1 then
+			meta.wn.type = 2
+		elseif meta.wn.type == 2 then
+			meta.wn.type = 1
+		end
+	end
+	if func.overImg(images[4],x,y) then
+		if meta.wn.strength == 1 then
+			meta.wn.strength = 2
+		elseif meta.wn.strength == 2 then
+			meta.wn.strength = 3
+		elseif meta.wn.strength == 3 then
+			meta.wn.strength = 1
+		end
+	end
 end
 
 function game:mousereleased(x,y,button) --if the mouse is released
@@ -178,13 +212,5 @@ end
 function game:keypressed(key)
 	if key == 'r' then
 		gamestate.switch(game,meta.levelnum, meta.try + 1, meta.voicegoing, linenum)
-	elseif key == 'f' then
-		if meta.wn.strength == 1 then
-			meta.wn.strength = 2
-		elseif meta.wn.strength == 2 then
-			meta.wn.strength = 3
-		elseif meta.wn.strength == 3 then
-			meta.wn.strength = 1
-		end
 	end
 end
