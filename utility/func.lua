@@ -94,7 +94,7 @@ function func.addBall(x,y,m)
 	return z
 end
 
-function func.addWell(x,y,m,r)
+function func.addWell(x,y,m,r,t)
 	local z = {}
 	z.b = love.physics.newBody(gameworld, x, y, "static")
 	z.s = love.physics.newCircleShape(8)
@@ -102,6 +102,7 @@ function func.addWell(x,y,m,r)
 	z.i = newAnimation(love.graphics.newImage("images/objects/well.png"),16,16,0.15,24)
 	z.m = tonumber(m)
 	z.r = tonumber(r)
+	z.t = tonumber(t)
 	z.f:setCategory(3)
 	z.f:setMask(1)
 	return z

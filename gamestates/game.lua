@@ -40,7 +40,6 @@ function game:enter(current, lvlno, try)
 	end
 	meta = {} --create the meta table
 	meta.levelnum = lvlno --remember the level number
-	meta.paused = false --set the state to not paused
 	meta.try = try --load the number of tries so far
 	w = 1 --counter = 1
 	meta.lines = {} --start the table
@@ -51,12 +50,12 @@ function game:enter(current, lvlno, try)
 	meta.linenum = 1 --set the line number to 1
 	meta.canspeak = true --let the game speak
 	meta.voicegoing = false --record that there is nobody speaking
+	meta.wd = {type = {"attract","repulse"},strength = {"weak","medium","strong"}} --reset the well info
+	meta.wi = {type = {1,2},strength = {10000,30000,50000}} --reset the well info
+	meta.wn = {type = 1,strength = 2} --reset the well info
 end
 
 function game:draw()
-	if not meta.paused then
-		gameworld:update(love.timer.getDelta()) --update the game world
-	end
 	
 	for q = 1, #star do --loop for the stars
 		if conf[2].v then --if dynamic stars are on
@@ -114,8 +113,12 @@ function game:draw()
 				if f > 30 then --if the force is larger than 30
 					f = 30 --stop it at 30
 				end
-				obj.ball[q].b:applyForce((f*(90-math.cos(a)))*xsign,(f*(90-math.sin(a)))*ysign) --split the force into x and y components and apply the force to the ball
-			end
+				if obj.well[w].t == 1 then
+					obj.ball[q].b:applyForce((f*(90-math.cos(a)))*xsign,(f*(90-math.sin(a)))*ysign) --split the force into x and y components and apply the force to the ball
+				elseif obj.well[w].t == 2 then
+					obj.ball[q].b:applyForce((f*(90-math.cos(a)))*-xsign,(f*(90-math.sin(a)))*-ysign) --split the force into x and y components and apply the force to the ball
+				end
+			end	
 		end
 	end
 	
@@ -133,18 +136,18 @@ function game:draw()
 		love.graphics.line(love.mouse.getX(),love.mouse.getY(),obj.ball[meta.ballno].b:getX(),obj.ball[meta.ballno].b:getY()) --draw a visual representation of the amount
 	end
 	
+	love.graphics.draw(love.graphics.newImage("images/gui/window.png"),672)
+	love.graphics.print("Well Type:",684,12)
+	love.graphics.print(meta.wd.type[meta.wn.type],684,24)
+	love.graphics.print("Well strength:",684,36)
+	love.graphics.print(meta.wd.strength[meta.wn.strength],684,48)
+	
 	love.graphics.draw(love.graphics.newImage("images/gui/window.png"))
 	love.graphics.print("Level " .. meta.levelnum, 12,12) --write the current level
-	love.graphics.print("Try " .. meta.try, 70, 12) --write the current level
-	if meta.voicegoing then
-		love.graphics.printf(meta.lines[meta.linenum],12,24,96) --print the line
+	love.graphics.print("Try " .. meta.try, 70, 12) --write the current try number
+	if meta.voicegoing then --if there is a line being spoken
+		love.graphics.printf(meta.lines[meta.linenum],12,24,96) --print the line of speech
 	end
-	if conf[5].v then --is cheats are on
-		for q = 1, #obj.cheat do --for all the guidelines
-			love.graphics.line(obj.cheat[q].x1, obj.cheat[q].y1, obj.cheat[q].x2, obj.cheat[q].y2) --draw the guideline
-		end
-	end
-	
 end
 
 function game:mousepressed(x,y,button) --if the mouse is pressed
@@ -153,14 +156,14 @@ function game:mousepressed(x,y,button) --if the mouse is pressed
 			if ((x>obj.ball[q].b:getX()-8)and(x<obj.ball[q].b:getX()-8+16))and((y>obj.ball[q].b:getY()-8)and(y<obj.ball[q].b:getY()-8+16)) then --if the mouse is over the ball
 				meta.mousepressed = true --tell the game the ball is being moved
 				meta.ballno = q --remember the ball number
-				obj.ball[q].v = false --stop the ball form moving again
+				obj.ball[q].v = false --stop the ball from moving again
 				return
 			end
 		end
 	end
 	for q = 1, #obj.spacewall do
 		if ((x > obj.spacewall[q].b:getX()-16)and(x<obj.spacewall[q].b:getX() + 16))and((y>obj.spacewall[q].b:getY()-16)and(y<obj.spacewall[q].b:getY()+16))then
-			obj.well[#obj.well+1] = func.addWell(x,y,30100,200)
+			obj.well[#obj.well+1] = func.addWell(x,y,meta.wi.strength[meta.wn.strength],200,meta.wi.type[meta.wn.type])
 		end
 	end
 end
@@ -175,7 +178,13 @@ end
 function game:keypressed(key)
 	if key == 'r' then
 		gamestate.switch(game,meta.levelnum, meta.try + 1, meta.voicegoing, linenum)
-	elseif key == 'p' then
-		meta.paused = not meta.paused
+	elseif key == 'f' then
+		if meta.wn.strength == 1 then
+			meta.wn.strength = 2
+		elseif meta.wn.strength == 2 then
+			meta.wn.strength = 3
+		elseif meta.wn.strength == 3 then
+			meta.wn.strength = 1
+		end
 	end
 end

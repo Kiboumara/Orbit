@@ -72,7 +72,7 @@ function options:mousepressed(x,y,button)
 		return
 	end
 	for q = 1, #conf do
-		if ((x>6.5*string.len(conf[q].t)+186)and(x<6.5*string.len(conf[q].t)+186+6.5*string.len(tostring(conf[q].v))))and((y>q*12+40)and(y<q*12+60)) then
+		if ((x>(7*string.len(conf[q].t)+186)-7)and(x<(7*string.len(conf[q].t)-7)+186+(7*string.len(tostring(conf[q].v)))-7))and((y>q*12+40)and(y<q*12+60)) then
 				if q == 1 or q == 2 or q==5 then
 					conf[q].v = not conf[q].v
 				end

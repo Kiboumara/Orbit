@@ -21,7 +21,7 @@ function title:init() --called when the gamestate is first entered
 		w = w + 1
 	end
 	musicstarted = false
-	TEsound.play("music/background/menu.wav",{"backgroundmusic","titlesound"},1,1,function () TEsound.playLooping("music/background/menuloop.wav",{"backgroundmusic","titlesound"});musicstarted = true;end)
+	TEsound.play("music/background/menu.wav",{"backgroundmusic","titlesound"},1,1,function () TEsound.playLooping("music/background/menuloop.wav",{"backgroundmusic","titlesound"})end)
 end
 
 function title:enter() --called when the gamestate is entered
@@ -46,7 +46,7 @@ end
 
 function title:draw() --called every frame
 	for q = 1, #star do --loop for the stars
-		if conf[2].v and musicstarted then
+		if conf[2].v then
 			star[q] = func.updateStar(star[q], love.timer.getDelta()) --This was placed here to avoid having to loop twice per frame.
 		end
 		love.graphics.setColor(255,255,255,star[q].a) --set the transparency to the stars 'health'
