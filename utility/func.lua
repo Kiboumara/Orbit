@@ -98,12 +98,12 @@ function func.addWell(x,y,m,r,t)
 	return z
 end
 
-function func.addSpacewall(x,y)
+function func.addSpacewall(x,y,face)
 	local z = {}
 	z.b = love.physics.newBody(gameworld, tonumber(x), tonumber(y), "static")
 	z.s = love.physics.newRectangleShape(32,32)
 	z.f = love.physics.newFixture(z.b,z.s)
-	z.i = newAnimation(love.graphics.newImage("images/objects/spacewall.png"),32,32,0.17,9)
+	z.i = newAnimation(love.graphics.newImage("images/objects/spacewall/" .. face .. ".png"),32,32,0.17,9)
 	z.i:seek(love.math.random(1, 9))
 	z.f:setCategory(2)
 	z.f:setMask(2)

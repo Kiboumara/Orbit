@@ -16,27 +16,34 @@ y2=584
 spacewall
 x=400
 y=400
+face=bottom
 
 spacewall
 x=400
 y=432
+face=topBottom
 
 spacewall
 x=400
 y=464
+face=topBottom
 
 spacewall
 x=400
 y=496
+face=topBottom
 
 spacewall
 x=400
 y=528
+face=topBottom
 
 spacewall
 x=400
 y=560
+face=topBottom
 
 spacewall
 x=400
 y=592
+face=top

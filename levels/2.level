@@ -10,100 +10,124 @@ m=5
 spacewall
 x=188
 y=0
+face=bottom
 
 spacewall
 x=188
 y=32
+face=topBottom
 
 spacewall
 x=188
 y=64
+face=topBottom
 
 spacewall
 x=188
 y=96
+face=topBottom
 
 spacewall
 x=188
 y=128
+face=topBottom
 
 spacewall
 x=188
 y=160
+face=topBottom
 
 spacewall
 x=188
 y=192
+face=topBottom
 
 spacewall
 x=188
 y=224
+face=topBottom
 
 spacewall
 x=188
 y=256
+face=topBottom
 
 spacewall
 x=188
 y=288
+face=topBottom
 
 spacewall
 x=188
 y=320
+face=topBottom
 
 spacewall
 x=188
 y=352
+face=topBottom
 
 spacewall
 x=478
 y=195
+face=bottom
 
 spacewall
 x=478
 y=227
+face=topBottom
 
 spacewall
 x=478
 y=259
+face=topBottom
 
 spacewall
 x=478
 y=291
+face=topBottom
 
 spacewall
 x=478
 y=323
+face=topBottom
 
 spacewall
 x=478
 y=355
+face=topBottom
 
 spacewall
 x=478
 y=387
+face=topBottom
 
 spacewall
 x=478
 y=419
+face=topRight
 
 spacewall
 x=510
 y=419
+face=leftRight
 
 spacewall
 x=542
 y=419
+face=leftRight
 
 spacewall
 x=574
 y=419
+face=leftRight
 
 spacewall
 x=606
 y=419
+face=leftRight
 
 spacewall
 x=638
 y=419
-
+face=left

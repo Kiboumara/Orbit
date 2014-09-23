@@ -27,8 +27,8 @@ function game:enter(current, lvlno, try)
 			obj.ball[#obj.ball+1] = func.addBall(block[1],block[2],block[3]) --add the ball
 			
 		elseif line == "spacewall" then --if the line starts a spacewall block
-			block, q = func.loadBlock(2, q, lvldata) --load the block into the meta table
-			obj.spacewall[#obj.spacewall+1] = func.addSpacewall(block[1],block[2]) --add the spacewall
+			block, q = func.loadBlock(3, q, lvldata) --load the block into the meta table
+			obj.spacewall[#obj.spacewall+1] = func.addSpacewall(block[1],block[2],block[3]) --add the spacewall
 			
 		elseif line == "cheat" then --if the line starts a spacewall block
 			block, q = func.loadBlock(4, q, lvldata) --load the block into the meta table
@@ -50,9 +50,9 @@ function game:enter(current, lvlno, try)
 	meta.linenum = 1 --set the line number to 1
 	meta.canspeak = true --let the game speak
 	meta.voicegoing = false --record that there is nobody speaking
-	meta.wd = {type = {"attract","repulse"},strength = {"weak","medium","strong"}} --reset the well info
-	meta.wi = {type = {1,2},strength = {10000,30000,50000}} --reset the well info
-	meta.wn = {type = 1,strength = 2} --reset the well info
+	meta.wd = {strength = {"weak","medium","strong"}} --reset the well info
+	meta.wi = {strength = {10000,30000,50000}} --reset the well info
+	meta.wn = {strength = 2} --reset the well info
 	images = {}
 	images[1] = {}
 	images[1].i = love.graphics.newImage("images/gui/window.png")
