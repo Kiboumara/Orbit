@@ -65,11 +65,7 @@ function game:enter(current, lvlno, try)
 	images[3] = {}
 	images[3].i = love.graphics.newImage("images/gui/change.png")
 	images[3].x = 687
-	images[3].y = 36
-	images[4] = {}
-	images[4].i = love.graphics.newImage("images/gui/change.png")
-	images[4].x = 687
-	images[4].y = 104
+	images[3].y = 40
 end
 
 function game:draw()
@@ -156,10 +152,8 @@ function game:draw()
 	for q = 1, #images do --for all the images
 		love.graphics.draw(images[q].i,images[q].x,images[q].y) --draw them at the x and y stored in their table
 	end
-	love.graphics.print("Well Type:",684,12)
-	love.graphics.print(meta.wd.type[meta.wn.type],684,24)
-	love.graphics.print("Well strength:",684,82)
-	love.graphics.print(meta.wd.strength[meta.wn.strength],684,92)
+	love.graphics.print("Well strength:",684,12)
+	love.graphics.print(meta.wd.strength[meta.wn.strength],684,26)
 	
 	love.graphics.print("Level " .. meta.levelnum, 12,12) --write the current level
 	love.graphics.print("Try " .. meta.try, 70, 12) --write the current try number
@@ -181,17 +175,14 @@ function game:mousepressed(x,y,button) --if the mouse is pressed
 	end
 	for q = 1, #obj.spacewall do
 		if ((x > obj.spacewall[q].b:getX()-16)and(x<obj.spacewall[q].b:getX() + 16))and((y>obj.spacewall[q].b:getY()-16)and(y<obj.spacewall[q].b:getY()+16))then
-			obj.well[#obj.well+1] = func.addWell(x,y,meta.wi.strength[meta.wn.strength],200,meta.wi.type[meta.wn.type])
+			if button == "r" then
+				obj.well[#obj.well+1] = func.addWell(x,y,meta.wi.strength[meta.wn.strength],200,2)
+			elseif button == "l" then
+				obj.well[#obj.well+1] = func.addWell(x,y,meta.wi.strength[meta.wn.strength],200,1)
+			end
 		end
 	end
 	if func.overImg(images[3],x,y) then
-		if meta.wn.type == 1 then
-			meta.wn.type = 2
-		elseif meta.wn.type == 2 then
-			meta.wn.type = 1
-		end
-	end
-	if func.overImg(images[4],x,y) then
 		if meta.wn.strength == 1 then
 			meta.wn.strength = 2
 		elseif meta.wn.strength == 2 then
